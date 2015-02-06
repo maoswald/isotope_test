@@ -1,2 +1,15 @@
 h1 {
   color: blue; }
+
+.post {
+  margin: 10px; }
+  .post.fb {
+    background-color: blue; }
+  .post.tw {
+    background-color: lightskyblue; }
+  .post.in {
+    background-color: saddlebrown; }
+  .post.pt {
+    background-color: red; }
+  .post.gp {
+    background-color: green; }

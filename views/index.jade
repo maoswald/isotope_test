@@ -116,6 +116,7 @@ html
         .news-feed-filter.button-group
             button.button.is-checked(data-filter='*') show all
             button.button(data-filter='.fb') Facebook
+            button.button(data-filter=':not(.fb)') NotFacebook
             button.button(data-filter='.tw') Twitter
             button.button(data-filter='.in') Instagram
             //button.button(data-filter='.transition') transition
@@ -149,6 +150,14 @@ html
             .post.in
                 h3.type IN
                 p.title inTitle
-                date.date 2015-02-01
+                date.date 2015-02-05
+            .post.pt
+                h3.type PT
+                p.title gpTitle
+                date.date 2015-02-03
+            .post.gp
+                h3.type G+
+                p.title gpTitle
+                date.date 2015-01-09
 
 
