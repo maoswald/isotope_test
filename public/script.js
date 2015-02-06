@@ -1,64 +1,20 @@
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
-;(function ( $, window, document, undefined ) {
+var app = angular.module('app',[]);
 
-    //$( function() {
-    //    // init Isotope
-    //    var $container = $('.isotope').isotope({
-    //        itemSelector: '.element-item',
-    //        layoutMode: 'fitRows',
-    //        getSortData: {
-    //            name: '.name',
-    //            symbol: '.symbol',
-    //            number: '.number parseInt',
-    //            category: '[data-category]',
-    //            weight: function( itemElem ) {
-    //                var weight = $( itemElem ).find('.weight').text();
-    //                return parseFloat( weight.replace( /[\(\)]/g, '') );
-    //            }
-    //        }
-    //    });
-    //
-    //    // filter functions
-    //    var filterFns = {
-    //        // show if number is greater than 50
-    //        numberGreaterThan50: function() {
-    //            var number = $(this).find('.number').text();
-    //            return parseInt( number, 10 ) > 50;
-    //        },
-    //        // show if name ends with -ium
-    //        ium: function() {
-    //            var name = $(this).find('.name').text();
-    //            return name.match( /ium$/ );
-    //        }
-    //    };
-    //
-    //    // bind filter button click
-    //    $('#filters').on( 'click', 'button', function() {
-    //        var filterValue = $( this ).attr('data-filter');
-    //        // use filterFn if matches value
-    //        filterValue = filterFns[ filterValue ] || filterValue;
-    //        $container.isotope({ filter: filterValue });
-    //    });
-    //
-    //    // bind sort button click
-    //    $('#sorts').on( 'click', 'button', function() {
-    //        var sortByValue = $(this).attr('data-sort-by');
-    //        $container.isotope({ sortBy: sortByValue });
-    //    });
-    //
-    //    // change is-checked class on buttons
-    //    $('.button-group').each( function( i, buttonGroup ) {
-    //        var $buttonGroup = $( buttonGroup );
-    //        $buttonGroup.on( 'click', 'button', function() {
-    //            $buttonGroup.find('.is-checked').removeClass('is-checked');
-    //            $( this ).addClass('is-checked');
-    //        });
-    //    });
-    //
-    //});
+app.controller('feedcontroller', ['$scope', function($scope) {
+    $scope.posts = [
+        {type:'fb', title:'fbTitle', date:'2015-01-10'},
+        {type:'fb', title:'afbTitle', date:'2015-01-30'},
+        {type:'tw', title:'twTitle', date:'2015-01-02'},
+        {type:'in', title:'inTitle', date:'2015-02-05'},
+        {type:'pt', title:'ptTitle', date:'2015-02-03'},
+        {type:'gp', title:'gpTitle', date:'2015-01-09'},
+        {type:'gp', title:'gpTitle', date:'2015-01-10'}
+    ],
 
-    $( function() {
+
+
+     $scope.readyload = function () {
+        console.log('fnk newsfeed')
         // init Isotope
         var $newsFeedContainer = $('.news-feed').isotope({
             itemSelector: '.post',
@@ -67,27 +23,12 @@
                 type: '.type',
                 title: '.title',
                 date: '.date'
-                //number: '.number parseInt',
-                //category: '[data-category]',
-                //weight: function( itemElem ) {
-                //    var weight = $( itemElem ).find('.weight').text();
-                //    return parseFloat( weight.replace( /[\(\)]/g, '') );
-                //}
             }
         });
 
         // filter functions
         var filterFns = {
-            // show if number is greater than 50
-            numberGreaterThan50: function() {
-                var number = $(this).find('.number').text();
-                return parseInt( number, 10 ) > 50;
-            },
-            // show if name ends with -ium
-            ium: function() {
-                var name = $(this).find('.name').text();
-                return name.match( /ium$/ );
-            }
+
         };
 
         // bind filter button click
@@ -97,7 +38,6 @@
             filterValue = filterFns[ filterValue ] || filterValue;
             $newsFeedContainer.isotope({ filter: filterValue });
         });
-
         // bind sort button click
         $('.news-feed-sorts').on( 'click', 'button', function() {
             var sortByValue = $(this).attr('data-sort-by');
@@ -119,9 +59,19 @@
             });
         });
 
-    });
+     }
 
+}]);
 
-
-
-})( jQuery, window, document );
+app.directive('post', function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            type: '@',
+            title: '@',
+            date: '@'
+        },
+        templateUrl: 'post'
+    }
+});

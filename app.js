@@ -27,6 +27,10 @@ app.get('/', function (req, res) {
     res.render('index')
 })
 
+app.get('/:template', function(req, res) {
+    res.render(req.params.template)
+})
+
 ////////////////////////////////////////////////////////////////////////////////
 //Start server
 app.set('port', process.env.PORT || 3000)
