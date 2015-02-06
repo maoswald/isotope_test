@@ -1,0 +1,21 @@
+{
+  "name": "isotope_test",
+  "version": "0.0.0",
+  "homepage": "https://github.com/maoswald/isotope_test",
+  "authors": [
+    "Manuel"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "isotope": "~2.1.0",
+    "jquery": "~2.1.3"
+  }
+}
