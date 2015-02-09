@@ -13,7 +13,11 @@ html(ng-app='app')
 
         div(ng-controller='feedcontroller')
             h2 This is the news feed
-            button(ng-click='readyload()') READY
+
+            //Load Button
+            //button(ng-click='readyload()') READY
+            .news-feed-append
+                button.button Append
 
             .news-feed-filter.button-group
                 button.button.is-checked(data-filter='*') show all
@@ -29,4 +33,5 @@ html(ng-app='app')
                 button.button(data-sort-by='date', reverse) Date
 
             .news-feed
-                post(ng-repeat='post in posts', type='{{post.type}}', title='{{post.title}}', date='{{post.date}}')
+                //Old initial posts
+                //post(ng-repeat='post in posts', type='{{post.type}}', title='{{post.title}}', date='{{post.date}}')

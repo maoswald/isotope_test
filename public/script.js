@@ -1,7 +1,7 @@
 var app = angular.module('app',[]);
 
 app.controller('feedcontroller', ['$scope', function($scope) {
-    $scope.posts = [
+    $scope.initialPosts = [
         {type:'fb', title:'fbTitle', date:'2015-01-10'},
         {type:'fb', title:'afbTitle', date:'2015-01-30'},
         {type:'tw', title:'twTitle', date:'2015-01-02'},
@@ -9,12 +9,29 @@ app.controller('feedcontroller', ['$scope', function($scope) {
         {type:'pt', title:'ptTitle', date:'2015-02-03'},
         {type:'gp', title:'gpTitle', date:'2015-01-09'},
         {type:'gp', title:'gpTitle', date:'2015-01-10'}
-    ],
+    ]
+  
+    var newPosts = [
+      {type:'fb', title:'newfbTitle', date:'2015-01-10'},
+      {type:'fb', title:'newafbTitle', date:'2015-01-30'},
+      {type:'tw', title:'newtwTitle', date:'2015-01-02'},
+      {type:'in', title:'newinTitle', date:'2015-02-05'},
+      {type:'pt', title:'newptTitle', date:'2015-02-03'},
+      {type:'gp', title:'newgpTitle', date:'2015-01-09'},
+      {type:'gp', title:'newgpTitle', date:'2015-01-10'}
+    ]
 
+    $scope.getItemElement = function (element) {
+      var $item = $('<div class="post ' + element.type + '"></div>');
+      $item.append($('<h3 class="type">' + element.type + '</h3>'))
+      $item.append($('<p class="type">' + element.type + '</p>'))
+      $item.append($('<date class="type">' + element.type + '</date>'))
+      return $item;
+    }
 
+     //Load button wrapper
+     //$scope.readyload = function () {
 
-     $scope.readyload = function () {
-        console.log('fnk newsfeed')
         // init Isotope
         var $newsFeedContainer = $('.news-feed').isotope({
             itemSelector: '.post',
@@ -25,6 +42,12 @@ app.controller('feedcontroller', ['$scope', function($scope) {
                 date: '.date'
             }
         });
+
+       //Load initial posts
+       for(var n = 0; n < $scope.initialPosts.length; n++) {
+         var element = $scope.getItemElement($scope.initialPosts[n])
+         $newsFeedContainer.append(element).isotope('appended', element)
+       }
 
         // filter functions
         var filterFns = {
@@ -38,6 +61,7 @@ app.controller('feedcontroller', ['$scope', function($scope) {
             filterValue = filterFns[ filterValue ] || filterValue;
             $newsFeedContainer.isotope({ filter: filterValue });
         });
+
         // bind sort button click
         $('.news-feed-sorts').on( 'click', 'button', function() {
             var sortByValue = $(this).attr('data-sort-by');
@@ -59,10 +83,19 @@ app.controller('feedcontroller', ['$scope', function($scope) {
             });
         });
 
-     }
+        $('.news-feed-append').on('click', 'button', function() {
+          for(var n = 0; n < newPosts.length; n++) {
+            var element = $scope.getItemElement(newPosts[n])
+            $newsFeedContainer.append(element).isotope('appended', element)
+          }
+        })
+
+     //}
 
 }]);
 
+
+//Element directive
 app.directive('post', function() {
     return {
         restrict: 'E',
